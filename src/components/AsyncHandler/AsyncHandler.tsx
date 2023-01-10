@@ -15,7 +15,7 @@ function AsyncHandler({children, error, loading}: Props) {
     if (error) {
         return <Alert severity='error'>{error}</Alert>
     }
-    return <>{children}</>
+    return <div className='my-md'>{children}</div>
 }
 
 export default AsyncHandler

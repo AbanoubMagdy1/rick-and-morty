@@ -8,6 +8,18 @@ html{
   font-size: calc(8px + .5vw);
 }
 
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
+img{
+  width: 100%;
+  height: auto;
+}
+
+/*Own classes*/
+
 .page{
   margin-top: 2rem;
 }
@@ -15,3 +27,10 @@ html{
 .title{
   text-align: center;
 }
+
+.my-md{
+  margin-block: 1rem;
+}
+
+
+
