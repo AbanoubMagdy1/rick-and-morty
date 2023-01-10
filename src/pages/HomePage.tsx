@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { useState, ChangeEvent } from 'react'
+import { useState, useLayoutEffect, ChangeEvent } from 'react'
 import { GET_CHARACTERS } from '../queries';
 import AsyncHandler from '../components/AsyncHandler/AsyncHandler';
 import { formatError } from '../utils';
@@ -22,15 +22,19 @@ interface QueryData {
 
 function Home() {
   const [filterName, setFilterName] = useState("")
-  const debouncedFilterName = useDebounce(filterName, 500)
-  const params = useParams();
   const navigate = useNavigate();
+  const debouncedFilterName = useDebounce(filterName, 500)
+
+  useLayoutEffect(() => {
+    navigate(`/1`)
+  }, [debouncedFilterName])
+
+  const params = useParams();
   const page = Number(params.page) || 1;
   const { loading, error, data } = useQuery<QueryData>(GET_CHARACTERS, {
     variables: { page, name: debouncedFilterName },
   });
 
-  
   function handlePageChange (_event: any, page: number): void {
     navigate(`/${page}`)
   }
@@ -38,6 +42,8 @@ function Home() {
   function handleNameChange (event: ChangeEvent<HTMLInputElement>): void {
     setFilterName(event.target.value)
   }
+
+
 
   return (
     <div className='page'>

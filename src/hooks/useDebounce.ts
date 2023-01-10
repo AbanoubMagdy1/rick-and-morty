@@ -12,7 +12,7 @@ export default function useDebounce(value: string, delay: number = 400) {
           clearTimeout(handler);
         };
       },
-      [value, delay] // Only re-call effect if value or delay changes
+      [value, delay]
     );
     return debouncedValue;
   }
