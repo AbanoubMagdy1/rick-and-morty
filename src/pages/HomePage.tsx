@@ -6,6 +6,7 @@ import { formatError } from '../utils';
 import './HomePage.scss'
 import type { MiniCharacter } from '../types';
 import CharacterCard from '../components/CharacterCard/CharacterCard';
+import { Pagination } from '@mui/material';
 
 interface QueryData {
   characters: {
@@ -21,6 +22,11 @@ function Home() {
   const { loading, error, data } = useQuery<QueryData>(GET_CHARACTERS, {
     variables: { page },
   });
+
+  
+  function handlePageChange (_event: any, page: number): void {
+    setPage(page);
+  }
   
   return (
     <div className='page'>
@@ -29,8 +35,15 @@ function Home() {
         <div className='characters-grid'>
           {data?.characters.results.map((character) => (<CharacterCard character={character}/>))}
         </div>
-
-        </>
+        <Pagination 
+          className='pagination' 
+          count={data?.characters.info.pages} 
+          page={page}
+          onChange={handlePageChange}
+          variant="outlined" 
+          color="primary"
+        />
+      </>
         
       </AsyncHandler>
     </div>
