@@ -11,7 +11,7 @@ function App() {
     <Container>
       <Typography className="title" variant='h2' component='h1'>Rick and Morty characters</Typography>
       <Routes>
-        <Route path='/' element={<HomePage/>} />
+        <Route path='/:page?' element={<HomePage/>} />
       </Routes>
     </Container>
   )

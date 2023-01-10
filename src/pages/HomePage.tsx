@@ -7,6 +7,7 @@ import './HomePage.scss'
 import type { MiniCharacter } from '../types';
 import CharacterCard from '../components/CharacterCard/CharacterCard';
 import { Pagination } from '@mui/material';
+import { useParams, useNavigate } from 'react-router-dom';
 
 interface QueryData {
   characters: {
@@ -18,14 +19,16 @@ interface QueryData {
 }
 
 function Home() {
-  const [page, setPage] = React.useState(1);
+  const params = useParams();
+  const navigate = useNavigate();
+  const page = Number(params.page) || 1;
   const { loading, error, data } = useQuery<QueryData>(GET_CHARACTERS, {
     variables: { page },
   });
 
   
   function handlePageChange (_event: any, page: number): void {
-    setPage(page);
+    navigate(`/${page}`)
   }
   
   return (
