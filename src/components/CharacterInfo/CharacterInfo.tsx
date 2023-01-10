@@ -12,7 +12,7 @@ interface Props {
 function CharacterInfo({text, data, isLast, ...rest}: Props) {
   return (
     <>
-        <Typography variant="h5" component="p" {...rest}>
+        <Typography variant="h6" component="p" {...rest}>
             {text}: {data || 'Unknown'}
         </Typography>
         {!isLast && <Divider/>}

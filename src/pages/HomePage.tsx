@@ -1,13 +1,15 @@
 import { useQuery } from '@apollo/client';
-import React from 'react'
+import { useState, ChangeEvent } from 'react'
 import { GET_CHARACTERS } from '../queries';
 import AsyncHandler from '../components/AsyncHandler/AsyncHandler';
 import { formatError } from '../utils';
-import './HomePage.scss'
 import type { MiniCharacter } from '../types';
 import CharacterCard from '../components/CharacterCard/CharacterCard';
-import { Pagination } from '@mui/material';
+import { Pagination, TextField, InputAdornment } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import { useParams, useNavigate } from 'react-router-dom';
+import './HomePage.scss'
+import useDebounce from '../hooks/useDebounce';
 
 interface QueryData {
   characters: {
@@ -19,25 +21,47 @@ interface QueryData {
 }
 
 function Home() {
+  const [filterName, setFilterName] = useState("")
+  const debouncedFilterName = useDebounce(filterName, 500)
   const params = useParams();
   const navigate = useNavigate();
   const page = Number(params.page) || 1;
   const { loading, error, data } = useQuery<QueryData>(GET_CHARACTERS, {
-    variables: { page },
+    variables: { page, name: debouncedFilterName },
   });
 
   
   function handlePageChange (_event: any, page: number): void {
     navigate(`/${page}`)
   }
-  
+
+  function handleNameChange (event: ChangeEvent<HTMLInputElement>): void {
+    setFilterName(event.target.value)
+  }
+
   return (
     <div className='page'>
+      <div className='search-input-container'>
+          <TextField
+            label="Search by name"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+            variant="standard"
+            value={filterName}
+            onChange={handleNameChange}
+          />
+        </div>
       <AsyncHandler loading={loading} error={formatError(error)}>
         <>
         <div className='characters-grid'>
-          {data?.characters.results.map((character) => (<CharacterCard character={character}/>))}
+          {data?.characters.results.map((character) => (<CharacterCard key={character.id} character={character}/>))}
         </div>
+
         <Pagination 
           className='pagination' 
           count={data?.characters.info.pages} 
@@ -45,6 +69,7 @@ function Home() {
           onChange={handlePageChange}
           variant="outlined" 
           color="primary"
+          disabled={loading}
         />
       </>
         
