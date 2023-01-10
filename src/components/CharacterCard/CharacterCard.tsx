@@ -13,7 +13,7 @@ function CharacterCard({character}: Props) {
     <Link to={`/character/${character.id}`}>
       <Card sx={{ maxWidth: 345 }}>
         <CardMedia
-          sx={{height: 250}}
+          component="img"
           image={character.image}
           title={character.name}
         />
