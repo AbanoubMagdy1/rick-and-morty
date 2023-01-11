@@ -37,6 +37,10 @@ function Home() {
 
   function handlePageChange (_event: any, page: number): void {
     navigate(`/${page}`)
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
   }
 
   function handleNameChange (event: ChangeEvent<HTMLInputElement>): void {
