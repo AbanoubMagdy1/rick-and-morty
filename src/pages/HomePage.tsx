@@ -26,7 +26,7 @@ function Home() {
   const debouncedFilterName = useDebounce(filterName, 500)
 
   useLayoutEffect(() => {
-    navigate(`/1`)
+    if(debouncedFilterName) navigate(`/1`)
   }, [debouncedFilterName])
 
   const params = useParams();
