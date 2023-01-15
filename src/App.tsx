@@ -6,8 +6,6 @@ import Container from './components/Container/Container'
 import DetailsPage from './pages/DetailsPage'
 
 function App() {
-  
-
   return (
     <Container>
       <Typography className="title" variant='h4' component='h1'>Rick and Morty characters</Typography>
