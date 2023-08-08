@@ -6,7 +6,7 @@ describe('AsyncHandler', () => {
     test('Show loader only on loading', () => {
         render(<AsyncHandler loading={true} error="Error" children={<div data-testid="div"/>}/>)
         expect(screen.getByRole('progressbar')).toBeInTheDocument()
-        expect(screen.getByRole('alert')).not.toBeInTheDocument()
+        expect(screen.queryByRole('alert')).not.toBeInTheDocument()
         expect(screen.queryByTestId('div')).not.toBeInTheDocument()
     })
 
