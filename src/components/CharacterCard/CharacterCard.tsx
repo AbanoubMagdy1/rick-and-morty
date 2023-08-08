@@ -14,11 +14,7 @@ function CharacterCard({character}: Props) {
       <Card sx={{ maxWidth: 345 }}>
         <CardMedia
           component="img"
-<<<<<<< HEAD
           loading='lazy'
-=======
-          loading="lazy"  
->>>>>>> 694fa6d91dd3e7470f89ce7c21d0e0e70c5d00bf
           image={character.image}
           title={character.name}
         />
